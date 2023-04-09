@@ -1,6 +1,6 @@
 {
   "name": "@larex/cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI Wrapper for Larex Framework build tool (vite)",
   "type": "module",
   "main": "dist/lib",
