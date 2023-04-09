@@ -1,17 +1,28 @@
-export const LAREX_APP_PROCESS_KEY = 'LAREX_APP';
+import { loadEnv } from 'vite';
 
-/**
- * Larex Framework app name for current process.
- */
-export function currentApp(): string {
-  return process.env[LAREX_APP_PROCESS_KEY] as string;
-}
+export const LAREX_APP_PROCESSENV = 'LAREX_APP';
+export const LAREX_MODE_PROCESSENV = 'LAREX_MODE';
 
 export class LarexAppProvider {
   /**
    * App name for current process.
    */
-  public name = '';
+  public name;
+
+  /**
+   * Current mode.
+   */
+  public mode;
+
+  /**
+   * App host
+   */
+  public host;
+
+  /**
+   * App project's current env vars
+   */
+  private env;
 
   /**
    * Provides current Larex Framework app from process.
@@ -19,7 +30,10 @@ export class LarexAppProvider {
    * @param name Current app name
    */
   constructor() {
-    this.name = currentApp();
+    this.name = process.env[LAREX_APP_PROCESSENV] as string;
+    this.mode = process.env[LAREX_MODE_PROCESSENV] as string;
+    this.env = loadEnv(this.mode, process.cwd());
+    this.host = new URL(this.env['VITE_APP_URL']).hostname;
   }
 
   /**
